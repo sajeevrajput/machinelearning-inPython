@@ -21,4 +21,15 @@ class Adaline(object):
     def predict(self,X):
         return np.where(np.dot(X,self.theta[1:]>=0),1,-1)
             
-            
+""" STARTER CODE 
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df=pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data",header=None)
+df=df.iloc[:100,[0,2,4]]
+X=df.iloc[:,[0,1]].values
+y=df.iloc[:,2].values
+y=np.where(y=='Iris-setosa',1,-1)
+
+"""
