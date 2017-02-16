@@ -1,28 +1,30 @@
 import numpy as np
 
 class Adaline(object):
-    def __init__(self, l_rate = 0.01, n_iter = 10):
+    def __init__(self, l_rate = 0.01, n_iter = 50):
         self.l_rate = l_rate
         self.n_iter = n_iter
     
-    def fit(self,X,y):
+    def fit(self, X, y):
         self.cost = []
         error = []
-        self.theta = np.zeros(X.shape[1]+1)
+        self.theta = np.zeros(X.shape[1] + 1)
         for _ in range(self.n_iter):
-            diff = y - self.predict(X)
+            diff = y-self.predict(X)
+            #print (diff)
+            
+            self.theta[1:] += self.l_rate * np.dot(X.T, diff)
+            self.theta[0] += self.l_rate * diff.sum()
             error.append(np.where(diff == 0, 0, 1).sum())
             self.cost.append(0.5 * (diff ** 2).sum())
-            self.theta[1:]+ = self.l_rate * np.dot(X.T,diff)
-            self.theta[0]+ = self.l_rate * diff.sum()
-            
         #print(error)
         #print (self.cost)
         #print (self.theta)
         return self
     
-    def predict(self,X):
-        return np.where((np.dot(X, self.theta[1:]) + self.theta[0]) >= 0, 1, -1)
+    def predict(self, X):
+        return (np.dot(X, self.theta[1:]) + self.theta[0])
+
        
 """ STARTER CODE 
 
