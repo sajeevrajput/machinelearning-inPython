@@ -38,6 +38,12 @@ X=df.iloc[:,[0,1]].values
 y=df.iloc[:,2].values
 y=np.where(y=='Iris-setosa',1,-1)
 
+
+Xmean=X.mean(axis=0)                        # Normalized X
+Xstd=X.std(axis=0)
+for dim in np.arange(X.ndim):
+    X[:,dim]=(X[:,dim]-Xmean[dim])/Xstd[dim]
+
 a=AdalineSGD()
 a.fit(X,y)
 plt.plot(np.arange(a.n_iter*X.shape[0]),a.cost_)
