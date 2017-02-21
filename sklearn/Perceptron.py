@@ -26,9 +26,9 @@ metrics.accuracy_score(y_test, y_pred)
 
 
 
-
-x1 = np.linspace(X[:,0].min()-1, X[:,0].max()+1,100)   #Build meshgrid and plot 
-x2 = np.linspace(X[:,1].min()-1, X[:,1].max()+1,100)
+X_std_comb = np.vstack((X_train,X_test))      #Combining all standarized data as one for meshplot
+x1 = np.linspace(X_std_comb[:,0].min()-1, X_std_comb[:,0].max()+1,100)   #Build meshgrid and plot 
+x2 = np.linspace(X_std_comb[:,1].min()-1, X_std_comb[:,1].max()+1,100)
 xx, yy = np.meshgrid(x1, x2)
 mesh_coo = np.array([xx.ravel(), yy.ravel()]).T
 z = ppn.predict(mesh_coo)
