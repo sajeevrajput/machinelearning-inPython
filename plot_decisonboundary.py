@@ -34,3 +34,26 @@ plt.ylabel("Petal length (in cm)")
 plt.legend(loc="upper left")
 
 plt.show()
+
+"""
+from matplotlib.colors import ListedColormap
+import matplotlib.pyplot as plt
+import numpy as np
+
+def plot_decisionboundary(X,y,classifier,resolution=0.02):
+    markers=['o','*','x','#','^','+']
+    colors=['red','green','blue','cyan','magenta','yellow']
+    cmap=ListedColormap(colors[:len(np.unique(y))])
+    
+    #BUILD Meshplot
+    x1,x2=X[:,0],X[:,1]
+    xx,yy=np.meshgrid(np.arange(x1.min()-1,x1.max()+1,resolution), np.arange(x2.min()-1,x2.max()+1,resolution))
+    mesh_coo=np.array([xx.ravel(),yy.ravel()]).T
+    z=classifier.predict(mesh_coo)
+    zz=z.reshape(xx.shape)
+    
+    plt.contourf(xx,yy,zz,cmap=cmap)
+    
+    plt.show()
+    
+    """
