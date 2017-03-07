@@ -22,7 +22,7 @@ plt.show()
 #Run RBF-kernel based SVM classifier
 
 from sklearn.svm import SVC
-svm = SVC(kernel = 'rbf', C = 10.0, random_state = 0)
+svm = SVC(kernel = 'rbf', C = 10.0, gamma=10.0,random_state = 0)  #Vary the values of Gamma and Kernels to see the effects
 svm.fit(X, y)
 
 
