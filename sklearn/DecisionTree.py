@@ -1,3 +1,5 @@
+
+
 import numpy as np
 
 from sklearn import datasets
@@ -53,3 +55,14 @@ plot_decisionboundary(X_comb,y_comb,tree)
 
 from sklearn.tree import export_graphviz
 export_graphviz(tree,out_file='tree.dot',feature_names=['petal length', 'petal width'])
+
+#################################################
+#           CODE FOR RANDOMN FOREST          
+#################################################
+from sklearn.ensemble import RandomForestClassifier
+forest=RandomForestClassifier(criterion='entropy',n_estimators=10,random_state=1,n_jobs=2)
+forest.fit(X_train,y_train)
+
+X_comb=np.vstack((X_train,X_test))
+y_comb=np.hstack((y_train,y_test))
+plot_decisionboundary(X_comb,y_comb,forest)
