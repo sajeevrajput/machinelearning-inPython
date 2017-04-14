@@ -17,6 +17,7 @@ plt.show()
 
 
 # Run KMeans on dataset(notice init='random') and see the clusters
+# Vary n_clusters and generate sihouette coeff to demonstrate the quality of clustering
 from sklearn.cluster import KMeans
 kmplus = KMeans(init = 'random', max_iter = 150, n_init = 10, 
                 n_clusters = 4, random_state = 0, tol=1e-4)
