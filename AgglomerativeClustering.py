@@ -22,4 +22,5 @@ from scipy.cluster.hierarchy import linkage, dendrogram
 linkage_mat = linkage(row_dist, method = 'complete') 
 
 row_dend=dendrogram(linkage_mat, labels=labels)
+plt.ylabel('Euclidean Distance')
 plt.show()
