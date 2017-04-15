@@ -12,9 +12,12 @@ labels = ['ID0', 'ID1', 'ID2', 'ID3', 'ID4']
 import pandas as pd
 df = pd.DataFrame(X, columns = variables, index = labels)
 
+
+
+#Compute pairwise distance function pdist() which returns a condensed vector ideal for parameter in cluster.hierarchy.linkage()
 from scipy.spatial.distance import pdist
 row_dist = pdist(df, metric = 'euclidean') 
-#we can now use the condensed distance matrix - row_dist for agglometric clustering
+#we can now use the condensed distance vector - row_dist for agglometric clustering
 
 import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import linkage, dendrogram
@@ -22,12 +25,12 @@ linkage_mat = linkage(row_dist, method = 'complete') #Returns linkage matrix.
                                                 #Can use df.values also instead of pairwise distance matrix
 fig=plt.figure(figsize=[8,8])
 axd=fig.add_axes([0.09,1,0.2,0.6])
-row_dend=dendrogram(linkage_mat, labels=labels,orientation='left')
+row_dend=dendrogram(linkage_mat, labels=labels,orientation='left') # generate dendogram & rotate counter-clockwise
 
 clustered_X = X[row_dend['leaves'][::-1]]
 
 axm=fig.add_axes([0.22,1,0.6,0.6])
-cax=axm.matshow(clustered_X,cmap="hot_r")
+cax=axm.matshow(clustered_X,cmap="hot_r") #generate heat map
 axd.set_xticks([])
 axd.set_yticks([])
 
