@@ -6,17 +6,19 @@ from sklearn.metrics import accuracy_score
 
 
 class SBS():
-    def __init__(self,estimator,k_features, test_size = 0.3, scoring = accuracy_score):
+    def __init__(self,estimator,k_features, test_size = 0.25, 
+                 scoring = accuracy_score, random_state = 1):
         #intialize paramteres
         self.test_size = test_size
         self.estimator =  clone(estimator)
         self.k_features = k_features
         self.scoring = scoring
+        self.random_state = random_state
         
     def fit(self, X, y):
         #split train-test data
         X_train, X_test, y_train, y_test =  train_test_split(X, y,
-                                                             test_size = self.test_size)
+                                                             test_size = self.test_size, random_state=self.random_state)
         dim = X.shape[1]
         self.indices = tuple(range(dim-1))
         score = self.calc_score(X_train, y_train, X_test, y_test, self.indices)
@@ -24,10 +26,10 @@ class SBS():
         self.subsets = [self.indices]
         
         while dim > self.k_features:
-            
+            scores = []
+            subsets = []
             for p in combinations(self.indices, dim-1):
-                scores = []
-                subsets = []
+                
 
                 score_ = self.calc_score(X_train, y_train, X_test, y_test, p)
                 scores.append(score_)
@@ -38,7 +40,7 @@ class SBS():
             self.subsets.append(self.indices)
             
             dim-=1
-    return self
+        return self
         
     def calc_score(self, X_train, y_train, X_test, y_test, p):
         self.estimator.fit(X_train[:, p], y_train)
@@ -46,7 +48,8 @@ class SBS():
         
         score = self.scoring(y_test, y_pred)
         return score
-
+        
+        
 # LOAD DATASET
 import pandas as pd
 df = pd.read_csv("C:/wine.csv", header = None)
