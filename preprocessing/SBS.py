@@ -38,7 +38,7 @@ class SBS():
             self.subsets.append(self.indices)
             
             dim-=1
-            return self
+    return self
         
     def calc_score(self, X_train, y_train, X_test, y_test, p):
         self.estimator.fit(X_train[:, p], y_train)
