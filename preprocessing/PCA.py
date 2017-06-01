@@ -45,3 +45,17 @@ plt.show()
 # now we need to build the tranformation matrix which is made of eigen vectors in decreasing order of corresponding
 # eigen values
 #top 6 principal components expain 90% of variance, we can dump the rest
+
+eigen_pairs = [(eig_val[i],eig_vec[:,i]) for i in range(len(eig_val))]
+eigen_pairs.sort(reverse=True)
+
+transfor_mat = np.hstack((eigen_pairs[0][1][:,np.newaxis],  #stacking the top 6 eigen vectors
+                          eigen_pairs[1][1][:,np.newaxis],
+                          eigen_pairs[2][1][:,np.newaxis],
+                          eigen_pairs[3][1][:,np.newaxis],
+                          eigen_pairs[4][1][:,np.newaxis],
+                          eigen_pairs[5][1][:,np.newaxis]))
+#transfor_mat
+
+X_train_pca = X_train.dot(transfor_mat)
+#the transformed data is X_train_pca with extracted features that explain around 90 % of variance
