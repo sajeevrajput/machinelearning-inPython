@@ -1,4 +1,5 @@
-    <!doctype html>
+{% from "_formhelpers.html" import render_field %}
+<!doctype html>
     <html>
     <head>
         <title>Review Page</title>
@@ -7,7 +8,8 @@
         <h1>Enter your review</h1>
     <form method="POST" action="{{ url_for('index') }}">
             {{ form.csrf_token }}
-            {{ form.reviewText }}
+            {{ render_field(form.reviewText) }}
+        <input type=submit value='Submit' name='submit_btn'>
     </form>
         </body>
     </html>
